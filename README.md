@@ -1,8 +1,9 @@
 <div align="center">
 
   <img src="./public/favicon.png" alt="logo" width="256px" height="auto">
-  <h1> oba live tool </h1>
+  <h1> 中控啵比直播助手 </h1>
   <p> 抖音小店/巨量百应/抖音团购/小红书/视频号/快手小店/淘宝直播小工具 </p>
+  <p> 本项目基于开源项目 <a href="https://github.com/qiutongxue/oba-live-tool">oba-live-tool</a>（MIT 协议）改版，面向直播中控小白做了简化，并增加了卡密授权。 </p>
   <br>
 
 [![GitHub Release][github release badge]](https://github.com/qiutongxue/oba-live-tool/releases/latest)

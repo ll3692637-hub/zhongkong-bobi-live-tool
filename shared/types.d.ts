@@ -3,6 +3,16 @@ declare type Account = {
   name: string
 }
 
+/** 卡密校验结果（主进程验签后返回给界面） */
+declare type LicenseVerifyResult = {
+  valid: boolean
+  reason?: 'empty' | 'malformed' | 'bad-payload' | 'bad-signature' | 'expired'
+  /** 过期时间（unix 毫秒），仅校验通过时有值 */
+  expiresAt?: number
+  /** 剩余整天数，仅校验通过时有值 */
+  daysLeft?: number
+}
+
 declare interface ProviderInfo {
   name: string
   baseURL: string

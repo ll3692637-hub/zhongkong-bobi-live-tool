@@ -22,6 +22,7 @@ import { useAutoMessageStore } from './hooks/useAutoMessage'
 import { useAutoPopUpStore } from './hooks/useAutoPopUp'
 import { useAutoReply, useAutoReplyStore } from './hooks/useAutoReply'
 import { useChromeConfigStore } from './hooks/useChromeConfig'
+import { useLicenseStore } from './hooks/useLicense'
 import { useLiveControlStore } from './hooks/useLiveControl'
 import { useToast } from './hooks/useToast'
 import { useUpdateConfigStore, useUpdateStore } from './hooks/useUpdate'
@@ -80,6 +81,12 @@ function useGlobalIpcListener() {
 function App() {
   const { enabled: devMode } = useDevMode()
   const { accounts, currentAccountId } = useAccounts()
+
+  // 启动时用已存的卡密重新校验一次（过期了就把状态改成过期）
+  useEffect(() => {
+    const { key, recheck } = useLicenseStore.getState()
+    if (key) void recheck()
+  }, [])
 
   useEffect(() => {
     const account = accounts.find(acc => acc.id === currentAccountId)

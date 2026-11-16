@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/select'
 import { useAccounts } from '@/hooks/useAccounts'
 import { useCurrentLiveControl } from '@/hooks/useLiveControl'
+import { useLicenseGuard } from '@/hooks/useLicense'
 import { useToast } from '@/hooks/useToast'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
@@ -76,6 +77,7 @@ function formatRemaining(seconds: number): string {
 
 export default function RedPacket() {
   const { toast } = useToast()
+  const ensureLicensed = useLicenseGuard()
   const accountId = useAccounts(store => store.currentAccountId)
   const isConnected = useCurrentLiveControl(context => context.isConnected)
   const [isSending, setIsSending] = useState(false)
@@ -103,6 +105,7 @@ export default function RedPacket() {
   const isCoolingDown = remaining > 0
 
   const handleSend = useCallback(async () => {
+    if (!ensureLicensed()) return
     if (isSending || isCoolingDown) return
     setIsSending(true)
     try {
@@ -122,7 +125,7 @@ export default function RedPacket() {
     } finally {
       setIsSending(false)
     }
-  }, [isSending, isCoolingDown, accountId, duration, toast, setLastSendTime])
+  }, [isSending, isCoolingDown, accountId, duration, toast, setLastSendTime, ensureLicensed])
 
   const handleCooldownChange = useCallback(
     (value: string) => {

@@ -7,14 +7,18 @@ import { Title } from '@/components/common/Title'
 import { Button } from '@/components/ui/button'
 import { useAutoReply } from '@/hooks/useAutoReply'
 import { useCurrentLiveControl } from '@/hooks/useLiveControl'
+import { useLicenseGuard } from '@/hooks/useLicense'
 import CommentList from '@/pages/AutoReply/components/CommentList'
 import PreviewList from '@/pages/AutoReply/components/PreviewList'
 
 export default function AutoReply() {
   const { isRunning, setIsRunning } = useAutoReply()
+  const ensureLicensed = useLicenseGuard()
   const [highlightedCommentId, setHighlightedCommentId] = useState<string | null>(null)
 
   const handleAutoReplyToggle = async () => {
+    // 开启自动回复要先有卡密；关闭不用
+    if (!isRunning && !ensureLicensed()) return
     try {
       setIsRunning(!isRunning)
     } catch (error) {

@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { IPC_CHANNELS } from 'shared/ipcChannels'
 import { useAccounts } from './useAccounts'
+import { useLicenseGuard } from './useLicense'
 import { useToast } from './useToast'
 
 /**
@@ -50,11 +51,14 @@ export function useTaskControl<T extends TaskType>(params: UseTaskControlParams<
 
   const { toast } = useToast()
   const accountId = useAccounts(store => store.currentAccountId)
+  const ensureLicensed = useLicenseGuard()
 
   /**
-   * 启动任务
+   * 启动任务（卡密没激活时不启动）
    */
   const onStartTask = useCallback(async () => {
+    if (!ensureLicensed()) return
+
     const config = getConfig()
 
     let result: boolean
@@ -87,6 +91,7 @@ export function useTaskControl<T extends TaskType>(params: UseTaskControlParams<
     startSuccessMessage,
     startFailureMessage,
     taskType,
+    ensureLicensed,
   ])
 
   /**

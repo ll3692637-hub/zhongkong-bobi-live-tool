@@ -3,6 +3,7 @@ import { IPC_CHANNELS } from 'shared/ipcChannels'
 import { accountManager } from '#/managers/AccountManager'
 import { providerService } from '#/services/ProviderService'
 import { typedIpcMainHandle } from '#/utils'
+import { verifyLicenseKey } from '#/utils/license'
 
 function setupIpcHandlers() {
   typedIpcMainHandle(IPC_CHANNELS.chrome.toggleDevTools, event => {
@@ -30,6 +31,10 @@ function setupIpcHandlers() {
 
   typedIpcMainHandle(IPC_CHANNELS.account.switch, (_, { account }) => {
     accountManager.setAccountName(account.id, account.name)
+  })
+
+  typedIpcMainHandle(IPC_CHANNELS.app.licenseVerify, (_, key: string) => {
+    return verifyLicenseKey(key)
   })
 }
 

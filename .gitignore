@@ -43,3 +43,5 @@ coverage/
 
 .trae
 .claude
+# 卡密私钥（卖家专用，绝不能提交）
+scripts/license-private.key

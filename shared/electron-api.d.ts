@@ -121,6 +121,7 @@ export interface IpcChannels {
   // App
   [IPC_CHANNELS.app.openLogFolder]: () => void
   [IPC_CHANNELS.app.openExternal]: (url: string) => void
+  [IPC_CHANNELS.app.licenseVerify]: (key: string) => LicenseVerifyResult
   [IPC_CHANNELS.app.notifyUpdate]: (arg: {
     currentVersion: string
     latestVersion: string

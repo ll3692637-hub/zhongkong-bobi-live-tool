@@ -13,7 +13,7 @@ import { createPublicKey, verify } from 'node:crypto'
  * 换完之后旧卡密全部失效。
  */
 export const BOBI_LICENSE_PUBLIC_KEY =
-  'MCowBQYDK2VwAyEAqQMt8lBmP3a3iNzIBjWgume9YTnb37abS0nhbbosNtk='
+  'MCowBQYDK2VwAyEAQ008NAxMUfWb/Pwl9NUr0rEeWqZ4VqIKuqK6tvdz2d0='
 
 function decodeB64url(str: string): Buffer {
   return Buffer.from(str, 'base64url')

@@ -26,10 +26,11 @@ type LatestYml = {
   releaseDate: string
 }
 
-const GITHUB_OWNER = 'qiutongxue'
-const GITHUB_REPO = 'oba-live-tool'
+const GITHUB_OWNER = 'll3692637-hub'
+const GITHUB_REPO = 'zhongkong-bobi-live-tool'
 const CDN_URL = 'https://fastly.jsdelivr.net/gh/'
-const PRODUCT_NAME = packageJson.name
+// 安装包文件名用 productName（中文名），和 electron-builder 生成的产物名保持一致
+const PRODUCT_NAME = packageJson.productName ?? packageJson.name
 
 const logger = createLogger('update')
 
@@ -385,7 +386,7 @@ class MacOSUpdater implements Updater {
         throw new Error(message)
       }
       // 先检查本地是否已经有了这个文件（计算 Sha512）
-      this.savePath = path.join(app.getPath('downloads'), 'oba-update-setup.dmg')
+      this.savePath = path.join(app.getPath('downloads'), 'bobi-update-setup.dmg')
       if (existsSync(this.savePath)) {
         const localFileSha512 = await this.calculateFileHash(this.savePath)
         logger.debug(`检测到本地文件，计算 Sha512 哈希值为 ${localFileSha512}`)

@@ -6,7 +6,7 @@
   <p> 本项目基于开源项目 <a href="https://github.com/qiutongxue/oba-live-tool">oba-live-tool</a>（MIT 协议）改版，面向直播中控小白做了简化，并增加了卡密授权。 </p>
   <br>
 
-[![GitHub Release][github release badge]](https://github.com/qiutongxue/oba-live-tool/releases/latest)
+[![GitHub Release][github release badge]](https://github.com/ll3692637-hub/zhongkong-bobi-live-tool/releases/latest)
 ![GitHub][github license badge]
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/qiutongxue/oba-live-tool)
  
@@ -44,13 +44,13 @@
 
 ### 下载安装
 
-访问 [Releases](https://github.com/qiutongxue/oba-live-tool/releases/latest) 页面下载最新版本安装包
+访问 [Releases](https://github.com/ll3692637-hub/zhongkong-bobi-live-tool/releases/latest) 页面下载最新版本安装包
 
 ### 源码构建
 
 ```bash
-git clone https://github.com/qiutongxue/oba-live-tool.git
-cd oba-live-tool
+git clone https://github.com/ll3692637-hub/zhongkong-bobi-live-tool.git
+cd zhongkong-bobi-live-tool
 pnpm install
 pnpm build
 # 构建在项目根目录的 /release 文件夹下
@@ -261,7 +261,7 @@ AI 助手只支持文本对话，在使用 AI 助手功能前，请先设置好�
 
 <!-- badage -->
 
-[github release badge]: https://img.shields.io/github/v/release/qiutongxue/oba-live-tool?style=flat&logo=github&labelColor=%2324292e&color=%231a7f37
+[github release badge]: https://img.shields.io/github/v/release/ll3692637-hub/zhongkong-bobi-live-tool?style=flat&logo=github&labelColor=%2324292e&color=%231a7f37
 
 
 [github license badge]: https://img.shields.io/badge/license-MIT-5c6bc0?style=flat&labelColor=24292e

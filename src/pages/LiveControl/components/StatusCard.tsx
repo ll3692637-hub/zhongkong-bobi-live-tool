@@ -1,10 +1,15 @@
 import { useMemoizedFn } from 'ahooks'
-import { CheckIcon, CircleAlert, GlobeIcon, XIcon } from 'lucide-react'
+import { CheckIcon, ChevronDownIcon, CircleAlert, GlobeIcon, XIcon } from 'lucide-react'
 import React, { useState } from 'react'
 import { IPC_CHANNELS } from 'shared/ipcChannels'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { useAccounts } from '@/hooks/useAccounts'
@@ -58,6 +63,8 @@ const StatusAlert = React.memo(() => {
 })
 
 const StatusCard = React.memo(() => {
+  // 无头模式收到进阶设置里，默认不展开，小白不用管
+  const [advancedOpen, setAdvancedOpen] = useState(false)
   return (
     <Card>
       <CardHeader>
@@ -75,7 +82,24 @@ const StatusCard = React.memo(() => {
           </div>
           <StatusAlert />
           <Separator />
-          <HeadlessSetting />
+          <Collapsible open={advancedOpen} onOpenChange={setAdvancedOpen}>
+            <div className="flex items-center justify-between">
+              <div className="text-sm font-medium">进阶设置</div>
+              <CollapsibleTrigger asChild>
+                <Button variant="ghost" size="sm">
+                  {advancedOpen ? '收起' : '展开'}
+                  <ChevronDownIcon
+                    className={`ml-1 h-4 w-4 transition-transform ${advancedOpen ? 'rotate-180' : ''}`}
+                  />
+                </Button>
+              </CollapsibleTrigger>
+            </div>
+            <CollapsibleContent>
+              <div className="pt-2">
+                <HeadlessSetting />
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
       </CardContent>
     </Card>

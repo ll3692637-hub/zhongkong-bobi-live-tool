@@ -29,6 +29,10 @@ export function AIReplySetting() {
           <Switch id={aiReplyId} checked={aiReplyEnabled} onCheckedChange={handleAiReplyChange} />
           <Label htmlFor={aiReplyId}>启用AI自动回复</Label>
         </div>
+        <p className="text-xs text-muted-foreground">
+          默认关闭。关键词回复不受影响；想用 AI 回复再打开，打开后要填 AI
+          服务商的 key，按用量计费。
+        </p>
         <div>
           <div className="flex items-center space-x-2">
             <Switch id={autoSendId} checked={autoSend} onCheckedChange={handleAutoSendChange} />

@@ -25,6 +25,7 @@
     "slow-server": "node ./scripts/slow-server.js"
   },
   "dependencies": {
+    "catbus-cli": "0.1.0",
     "electron-updater": "6.6.2",
     "playwright": "^1.50.0",
     "playwright-extra": "^4.3.6",

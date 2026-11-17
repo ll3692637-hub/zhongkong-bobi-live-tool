@@ -53,6 +53,10 @@ interface AccountRuntime {
   failCount: number
 }
 
+function isDanmuAccountId(id: string): id is DanmuAccountId {
+  return (DANMU_ACCOUNTS as readonly string[]).includes(id)
+}
+
 class DanmuService {
   private accounts: Record<DanmuAccountId, AccountRuntime> = Object.fromEntries(
     DANMU_ACCOUNTS.map(id => [
@@ -119,7 +123,11 @@ class DanmuService {
   }
 
   /** 开始登录（后台跑）。全局锁被占时直接拒绝，不排队。 */
-  startLogin(account: DanmuAccountId): { ok: boolean; reason?: string } {
+  startLogin(account: string): { ok: boolean; reason?: string } {
+    if (!isDanmuAccountId(account)) {
+      logger.error(`未知账号：${account}`)
+      return { ok: false, reason: 'unknown-account' }
+    }
     if (this.loginBusy) {
       logger.warn(`${account} 登录被拦截：已有其他账号正在登录，请等它完成后再扫`)
       return { ok: false, reason: 'busy' }
@@ -238,7 +246,8 @@ class DanmuService {
   }
 
   /** 强制退出：清状态、删凭证；正在登录的就是这个号时释放全局锁。 */
-  logout(account: DanmuAccountId): void {
+  logout(account: string): void {
+    if (!isDanmuAccountId(account)) return
     const st = this.accounts[account]
     if (this.loggingInAccount === account && this.loginChild) {
       try {
@@ -259,7 +268,7 @@ class DanmuService {
   }
 
   /** 提交短信验证码：写 TEMP_DIR/mfa_code.txt，catbus CLI 会读它。 */
-  submitSmsCode(_account: DanmuAccountId, code: string): void {
+  submitSmsCode(_account: string, code: string): void {
     try {
       fs.writeFileSync(getMfaCodePath(), code.trim())
       logger.info('验证码已提交')
@@ -269,7 +278,8 @@ class DanmuService {
   }
 
   /** 二维码图片（base64 data URL），没有则返回 null。 */
-  getQrImage(account: DanmuAccountId): string | null {
+  getQrImage(account: string): string | null {
+    if (!isDanmuAccountId(account)) return null
     try {
       const p = getQrCopyPath(account)
       if (!fs.existsSync(p)) return null

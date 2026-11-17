@@ -63,7 +63,7 @@ function useGlobalIpcListener() {
   })
 
   useIpcListener(IPC_CHANNELS.tasks.danmu.stoppedEvent, () => {
-    toast.info('批量弹幕已结束')
+    toast.success('批量弹幕已结束')
   })
 
   useIpcListener(IPC_CHANNELS.tasks.autoReply.listenerStopped, id => {

@@ -1,9 +1,11 @@
+import { MessagesSquareIcon } from 'lucide-react'
 import { NavLink } from 'react-router'
 import { abilities, autoReplyPlatforms } from '@/abilities'
 import { useCurrentAutoMessage } from '@/hooks/useAutoMessage'
 import { useCurrentAutoPopUp } from '@/hooks/useAutoPopUp'
 import { useAutoReply } from '@/hooks/useAutoReply'
 import { useCurrentLiveControl } from '@/hooks/useLiveControl'
+import { useDanmuStore } from '@/hooks/useDanmu'
 import { cn } from '@/lib/utils'
 import {
   CarbonBlockStorage,
@@ -27,6 +29,7 @@ export default function Sidebar() {
   const isAutoMessageRunning = useCurrentAutoMessage(context => context.isRunning)
   const isAutoPopupRunning = useCurrentAutoPopUp(context => context.isRunning)
   const { isRunning: isAutoReplyRunning } = useAutoReply()
+  const isDanmuRunning = useDanmuStore(s => s.snapshot?.sending ?? false)
   const platform = useCurrentLiveControl(context => context.platform)
 
   const tabs: SidebarTab[] = [
@@ -53,6 +56,12 @@ export default function Sidebar() {
       isRunning: isAutoReplyRunning,
       icon: <CarbonIbmEventAutomation className="w-5 h-5" />,
       platform: autoReplyPlatforms,
+    },
+    {
+      id: '/danmu',
+      name: '批量弹幕',
+      isRunning: isDanmuRunning,
+      icon: <MessagesSquareIcon className="w-5 h-5" />,
     },
     {
       id: '/red-packet',

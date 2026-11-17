@@ -100,6 +100,20 @@ export interface IpcChannels {
   // 一键发红包
   [IPC_CHANNELS.tasks.redPacket.send]: (accountId: string, duration: string) => boolean
 
+  // 批量弹幕（小号轮番发文案）
+  [IPC_CHANNELS.tasks.danmu.start]: (config: DanmuSendConfig) => boolean
+  [IPC_CHANNELS.tasks.danmu.stop]: () => void
+  [IPC_CHANNELS.tasks.danmu.pause]: () => void
+  [IPC_CHANNELS.tasks.danmu.resume]: () => void
+  [IPC_CHANNELS.tasks.danmu.stoppedEvent]: () => void
+  [IPC_CHANNELS.tasks.danmu.statusChanged]: (snapshot: DanmuSnapshot) => void
+  [IPC_CHANNELS.tasks.danmu.getStatus]: () => DanmuSnapshot
+  [IPC_CHANNELS.tasks.danmu.refreshLogins]: () => void
+  [IPC_CHANNELS.tasks.danmu.login]: (account: string) => { ok: boolean; reason?: string }
+  [IPC_CHANNELS.tasks.danmu.logout]: (account: string) => void
+  [IPC_CHANNELS.tasks.danmu.submitSmsCode]: (account: string, code: string) => void
+  [IPC_CHANNELS.tasks.danmu.getQrImage]: (account: string) => string | null
+
   // Updater
   [IPC_CHANNELS.updater.checkUpdate]: () => Promise<
     { latestVersion: string; currentVersion: string; releaseNote?: string } | undefined

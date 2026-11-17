@@ -4,6 +4,7 @@ import { setupAutoMessageIpcHandlers } from './autoMessage'
 import { setupAutoPopUpIpcHandlers } from './autoPopUp'
 import { setupBrowserIpcHandlers } from './browser'
 import { setupAutoReplyIpcHandlers } from './commentListener'
+import { setupDanmuIpcHandlers } from './danmu'
 import { setupLiveControlIpcHandlers } from './connection'
 import { setupPinCommentIpcHandler } from './pinComment'
 import { setupRedPacketIpcHandlers } from './redPacket'
@@ -14,6 +15,7 @@ setupAIChatIpcHandlers()
 setupAutoPopUpIpcHandlers()
 setupAutoReplyIpcHandlers()
 setupAutoMessageIpcHandlers()
+setupDanmuIpcHandlers()
 setupBrowserIpcHandlers()
 setupAppIpcHandlers()
 setupUpdateIpcHandlers()

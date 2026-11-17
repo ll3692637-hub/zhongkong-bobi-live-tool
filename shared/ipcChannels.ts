@@ -44,6 +44,21 @@ export const IPC_CHANNELS = {
     redPacket: {
       send: 'tasks:redPacket:send',
     },
+    // 批量弹幕（小号轮番发文案）
+    danmu: {
+      start: 'tasks:danmu:start',
+      stop: 'tasks:danmu:stop',
+      pause: 'tasks:danmu:pause',
+      resume: 'tasks:danmu:resume',
+      stoppedEvent: 'tasks:danmu:stoppedEvent',
+      statusChanged: 'tasks:danmu:statusChanged',
+      getStatus: 'tasks:danmu:getStatus',
+      refreshLogins: 'tasks:danmu:refreshLogins',
+      login: 'tasks:danmu:login',
+      logout: 'tasks:danmu:logout',
+      submitSmsCode: 'tasks:danmu:submitSmsCode',
+      getQrImage: 'tasks:danmu:getQrImage',
+    },
   },
   config: {
     save: 'config:save',

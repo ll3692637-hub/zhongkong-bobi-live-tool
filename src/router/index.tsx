@@ -4,6 +4,7 @@ import AutoMessage from '@/pages/AutoMessage'
 import AutoPopUp from '@/pages/AutoPopUp'
 import AutoReply from '@/pages/AutoReply'
 import AutoReplySettings from '@/pages/AutoReply/AutoReplySettings'
+import Danmu from '@/pages/Danmu'
 import LiveControl from '@/pages/LiveControl'
 import RedPacket from '@/pages/RedPacket'
 import Settings from '@/pages/SettingsPage'
@@ -45,6 +46,10 @@ export const router = createHashRouter([
       {
         path: '/red-packet',
         element: <RedPacket />,
+      },
+      {
+        path: '/danmu',
+        element: <Danmu />,
       },
     ],
   },

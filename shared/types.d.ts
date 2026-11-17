@@ -218,3 +218,43 @@ declare type LicenseSyncPatch = {
   trialMaxSeenAt?: number | null
   everActivated?: boolean
 }
+
+/** 批量弹幕：账号状态 */
+declare type DanmuAccountStatus =
+  | 'logged-out' // 未登录
+  | 'logging-in' // 登录中（等扫码）
+  | 'need-sms' // 等短信验证码
+  | 'logged-in' // 已登录
+  | 'expired' // 票据过期
+  | 'risk-disabled' // 风控停用
+
+declare interface DanmuAccountState {
+  id: string
+  status: DanmuAccountStatus
+  userName: string
+  qrReady: boolean
+  failCount: number
+}
+
+declare interface DanmuProgress {
+  sent: number
+  total: number
+  groupIndex: number
+  groupCount: number
+}
+
+declare interface DanmuSnapshot {
+  accounts: DanmuAccountState[]
+  sending: boolean
+  paused: boolean
+  progress: DanmuProgress
+  loginBusy: boolean
+}
+
+/** 批量弹幕：开始发送的配置（文案全文随启动调用一起传给主进程）。 */
+declare interface DanmuSendConfig {
+  roomId: string
+  intervalMin: number
+  intervalMax: number
+  messagesText: string
+}

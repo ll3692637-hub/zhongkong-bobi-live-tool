@@ -1,7 +1,7 @@
 {
   "name": "zhongkong-bobi-live-tool",
   "type": "module",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "productName": "中控啵比直播助手",
   "private": true,
   "description": "中控啵比直播助手，用于直播带货，能自动弹窗，自动发言",
@@ -112,6 +112,13 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "electron"
+    ]
+  },
+  "build": {
+    // catbus-cli 依赖含原生模块（@napi-rs/canvas 的 .node 文件），
+    // 不能放在 asar 包里读，必须解包出来才能加载
+    "asarUnpack": [
+      "**/*.node"
     ]
   }
 }

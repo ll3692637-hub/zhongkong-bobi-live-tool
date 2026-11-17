@@ -21,6 +21,7 @@ import { useAccounts } from './hooks/useAccounts'
 import { useAutoMessageStore } from './hooks/useAutoMessage'
 import { useAutoPopUpStore } from './hooks/useAutoPopUp'
 import { useAutoReply, useAutoReplyStore } from './hooks/useAutoReply'
+import { useDanmuStore } from './hooks/useDanmu'
 import { useChromeConfigStore } from './hooks/useChromeConfig'
 import { useLicenseStore } from './hooks/useLicense'
 import { useLiveControlStore } from './hooks/useLiveControl'
@@ -55,6 +56,14 @@ function useGlobalIpcListener() {
   useIpcListener(IPC_CHANNELS.tasks.autoPopUp.stoppedEvent, id => {
     setIsRunningAutoPopUp(id, false)
     toast.error('自动弹窗已停止')
+  })
+
+  useIpcListener(IPC_CHANNELS.tasks.danmu.statusChanged, snapshot => {
+    useDanmuStore.getState().setSnapshot(snapshot)
+  })
+
+  useIpcListener(IPC_CHANNELS.tasks.danmu.stoppedEvent, () => {
+    toast.info('批量弹幕已结束')
   })
 
   useIpcListener(IPC_CHANNELS.tasks.autoReply.listenerStopped, id => {

@@ -22,8 +22,13 @@ function decodeB64url(str: string): Buffer {
 /**
  * 校验一张卡密。卡密格式：BOBI1.<payload>.<signature>
  * payload 是 base64url 编码的 JSON：{"v":1,"exp":过期时间的 unix 秒,"id":"随机编号"}
+ * @param input 卡密字符串
+ * @param publicKey 验签用的公钥，默认用应用内置公钥；仅单元测试传入临时公钥
  */
-export function verifyLicenseKey(input: string): LicenseVerifyResult {
+export function verifyLicenseKey(
+  input: string,
+  publicKey: string = BOBI_LICENSE_PUBLIC_KEY,
+): LicenseVerifyResult {
   const key = (input ?? '').trim()
   if (!key) {
     return { valid: false, reason: 'empty' }
@@ -47,15 +52,15 @@ export function verifyLicenseKey(input: string): LicenseVerifyResult {
 
   let signatureOk = false
   try {
-    const publicKey = createPublicKey({
-      key: Buffer.from(BOBI_LICENSE_PUBLIC_KEY, 'base64'),
+    const publicKeyObj = createPublicKey({
+      key: Buffer.from(publicKey, 'base64'),
       format: 'der',
       type: 'spki',
     })
     signatureOk = verify(
       null,
       Buffer.from(payloadB64, 'utf8'),
-      publicKey,
+      publicKeyObj,
       decodeB64url(sigB64),
     )
   } catch {

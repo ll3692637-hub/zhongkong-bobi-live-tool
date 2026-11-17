@@ -8,7 +8,7 @@
 
 [![GitHub Release][github release badge]](https://github.com/ll3692637-hub/zhongkong-bobi-live-tool/releases/latest)
 ![GitHub][github license badge]
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/qiutongxue/oba-live-tool)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ll3692637-hub/zhongkong-bobi-live-tool)
  
 </div>
 
@@ -180,7 +180,7 @@ pnpm build
 
 WebSocket 功能负责将监听到的评论信息广播到所有连接的客户端。可以在自动回复的设置页面中开启 WebSocket 服务，并配置相应的端口号。开启 WebSocket 并点击「开始监听」后，应用会自行启动 WebSocket **服务端**，绑定本机所有 ip 接口（`0.0.0.0`）。
 
-发送格式为 JSON 字符串，[类型定义参照这里](https://github.com/qiutongxue/oba-live-tool/blob/3c482728ac94ab33c76e072ed0424f9507a9dc3f/shared/types.d.ts#L84-L171)
+发送格式为 JSON 字符串，[类型定义参照这里](https://github.com/ll3692637-hub/zhongkong-bobi-live-tool/blob/bobi-v1/shared/types.d.ts#L84-L171)
 
 
 ### 发红包
@@ -241,7 +241,7 @@ AI 助手只支持文本对话，在使用 AI 助手功能前，请先设置好�
 设置自定义代理加速方式如下：
 
 1. 找到一个能够代理加速 github release 的站点，如 `gh-proxy.com`
-2. 查看站点提供的加速地址，如下载 1.5.20-windows-x64 版本的地址可以是 `https://gh-proxy.org/https://github.com/qiutongxue/oba-live-tool/releases/download/v1.5.20/oba-live-tool_1.5.20_windows_x64.exe`
+2. 查看站点提供的加速地址，如下载 1.6.4-windows-x64 版本的地址可以是 `https://gh-proxy.org/https://github.com/ll3692637-hub/zhongkong-bobi-live-tool/releases/download/v1.6.4/中控啵比直播助手_1.6.4_windows_x64.exe`
 3. 把 `https://github.com/……` 及后面的链接删除，保留前缀 `https://gh-proxy.org/`
 4. 将前缀地址复制到自定义更新源输入框中
 
@@ -257,7 +257,7 @@ AI 助手只支持文本对话，在使用 AI 助手功能前，请先设置好�
 
 ## Star History
 
-[![Star History Chart](https://star-history.dera.page/svg?repos=qiutongxue/oba-live-tool&type=Date)](https://star-history.dera.page/#qiutongxue/oba-live-tool&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=ll3692637-hub/zhongkong-bobi-live-tool&type=Date)](https://star-history.dera.page/#ll3692637-hub/zhongkong-bobi-live-tool&Date)
 
 <!-- badage -->
 

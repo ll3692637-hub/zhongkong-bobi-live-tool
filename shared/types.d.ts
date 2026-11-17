@@ -206,3 +206,15 @@ declare type LiveMessage =
   | DouyinLiveMessage
   | XiaohongshuCommentLiveMessage
   | TaobaoCommentLiveMessage
+
+/**
+ * 渲染进程同步给主进程的授权状态（用于主进程授权复核）。
+ * 主进程只接受：验签通过的新卡密（失败的忽略，保护已存有效卡密）、
+ * 空串（清除卡密）、先到先得的试用开始时间、只增不减的最大时间。
+ */
+declare type LicenseSyncPatch = {
+  key?: string | null
+  trialStartedAt?: number | null
+  trialMaxSeenAt?: number | null
+  everActivated?: boolean
+}

@@ -82,10 +82,22 @@ function App() {
   const { enabled: devMode } = useDevMode()
   const { accounts, currentAccountId } = useAccounts()
 
-  // 启动时用已存的卡密重新校验一次（过期了就把状态改成过期）
+  // 启动时用已存的卡密重新校验一次（过期了就把状态改成过期），
+  // 并初始化 72 小时试用（幂等：已有卡密或已有试用的用户不会重复创建）。
+  // 校验与试用初始化只在 effect 里做，不在渲染过程中改持久化状态。
   useEffect(() => {
-    const { key, recheck } = useLicenseStore.getState()
+    const { key, recheck, ensureTrial } = useLicenseStore.getState()
+    ensureTrial()
     if (key) void recheck()
+  }, [])
+
+  // 每 60 秒推进一次试用时间观测（只增不减），
+  // 这样会话中回拨系统时钟也延长不了试用。
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      useLicenseStore.getState().observeTrialClock()
+    }, 60_000)
+    return () => window.clearInterval(id)
   }, [])
 
   useEffect(() => {

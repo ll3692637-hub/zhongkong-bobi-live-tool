@@ -5,6 +5,7 @@ import { IPC_CHANNELS } from 'shared/ipcChannels'
 import { createLogger } from '#/logger'
 import { accountManager } from '#/managers/AccountManager'
 import { typedIpcMainHandle } from '#/utils'
+import { isAuthorized } from '#/utils/licenseState'
 
 const TASK_NAME = '自动弹窗'
 const TASK_TYPE = 'auto-popup'
@@ -12,6 +13,13 @@ const TASK_TYPE = 'auto-popup'
 // IPC 处理程序
 function setupIpcHandlers() {
   typedIpcMainHandle(IPC_CHANNELS.tasks.autoPopUp.start, async (_, accountId, config) => {
+    // 主进程授权复核：只改前端显示状态启动不了任务
+    if (!isAuthorized()) {
+      createLogger(`@${accountManager.getAccountName(accountId)}`)
+        .scope(TASK_NAME)
+        .error('主进程授权复核未通过，拒绝启动任务')
+      return false
+    }
     return await Result.pipe(
       accountManager.getSession(accountId),
       Result.andThen(accountSession => accountSession.startTask({ type: TASK_TYPE, config })),

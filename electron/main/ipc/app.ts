@@ -4,6 +4,7 @@ import { accountManager } from '#/managers/AccountManager'
 import { providerService } from '#/services/ProviderService'
 import { typedIpcMainHandle } from '#/utils'
 import { verifyLicenseKey } from '#/utils/license'
+import { syncLicenseState } from '#/utils/licenseState'
 
 function setupIpcHandlers() {
   typedIpcMainHandle(IPC_CHANNELS.chrome.toggleDevTools, event => {
@@ -35,6 +36,13 @@ function setupIpcHandlers() {
 
   typedIpcMainHandle(IPC_CHANNELS.app.licenseVerify, (_, key: string) => {
     return verifyLicenseKey(key)
+  })
+
+  // 渲染进程同步授权状态，供主进程在任务启动时复核。
+  // 同步本身不决定授权：主进程收到后按 syncLicenseState 的合并规则处理，
+  // 真正的放行判断只在 isAuthorized() 里做。
+  typedIpcMainHandle(IPC_CHANNELS.app.licenseSync, (_, patch: LicenseSyncPatch) => {
+    syncLicenseState(patch)
   })
 }
 

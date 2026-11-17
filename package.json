@@ -1,7 +1,7 @@
 {
   "name": "zhongkong-bobi-live-tool",
   "type": "module",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "productName": "中控啵比直播助手",
   "private": true,
   "description": "中控啵比直播助手，用于直播带货，能自动弹窗，自动发言",

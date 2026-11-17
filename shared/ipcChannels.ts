@@ -76,5 +76,6 @@ export const IPC_CHANNELS = {
     getProviders: 'app:getProviders',
     providersUpdated: 'app:providersUpdated',
     licenseVerify: 'app:license:verify',
+    licenseSync: 'app:license:sync',
   },
 } as const

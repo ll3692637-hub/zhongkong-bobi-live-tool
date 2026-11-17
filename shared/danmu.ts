@@ -63,7 +63,10 @@ export function pickAccountForGroup(available: string[], groupIndex: number): st
 
 /** 组间间隔夹取：下限至少 5 秒，上限不小于下限；非法输入回落到默认值。 */
 export function clampGroupInterval(min: number, max: number): [number, number] {
-  const lo = Math.max(DANMU_MIN_INTERVAL_SECONDS, Math.floor(min) || DANMU_DEFAULT_INTERVAL[0])
-  const hi = Math.max(lo, Math.floor(max) || DANMU_DEFAULT_INTERVAL[1])
+  // 注意：不能用 `||` 做回落——0 是合法的下限输入（会被夹到 5），但 0 是 falsy
+  const loRaw = Number.isNaN(min) ? DANMU_DEFAULT_INTERVAL[0] : Math.floor(min)
+  const hiRaw = Number.isNaN(max) ? DANMU_DEFAULT_INTERVAL[1] : Math.floor(max)
+  const lo = Math.max(DANMU_MIN_INTERVAL_SECONDS, loRaw)
+  const hi = Math.max(lo, hiRaw)
   return [lo, hi]
 }

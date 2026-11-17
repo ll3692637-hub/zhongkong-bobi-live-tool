@@ -1,5 +1,6 @@
 import { app, BrowserWindow, shell } from 'electron'
 import { IPC_CHANNELS } from 'shared/ipcChannels'
+import { createLogger } from '#/logger'
 import { accountManager } from '#/managers/AccountManager'
 import { providerService } from '#/services/ProviderService'
 import { typedIpcMainHandle } from '#/utils'
@@ -41,8 +42,12 @@ function setupIpcHandlers() {
   // 渲染进程同步授权状态，供主进程在任务启动时复核。
   // 同步本身不决定授权：主进程收到后按 syncLicenseState 的合并规则处理，
   // 真正的放行判断只在 isAuthorized() 里做。
+  // 日志只记“有没有卡密、试用开始没有、是否激活过”，绝不记卡密原文。
   typedIpcMainHandle(IPC_CHANNELS.app.licenseSync, (_, patch: LicenseSyncPatch) => {
     syncLicenseState(patch)
+    createLogger('license').info(
+      `授权状态同步：卡密=${patch.key ? '已提供' : '无'}，试用开始=${patch.trialStartedAt ?? '无'}，曾激活=${!!patch.everActivated}`,
+    )
   })
 }
 
